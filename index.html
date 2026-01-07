@@ -6,41 +6,120 @@
   <title>SentimenLAB</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(16, 185, 129, 0.15);
+    }
+    
+    .glow {
+      box-shadow: 0 0 60px -12px rgba(16, 185, 129, 0.4);
+    }
+    
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    
+    details[open] summary svg {
+      transform: rotate(180deg);
+    }
+    
+    details summary svg {
+      transition: transform 0.2s ease-in-out;
+    }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-slate-950 text-slate-100 antialiased">
   <!-- Header -->
-  <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-      <a href="#top" class="flex items-center gap-3">
-        <!-- GANTI src="logo.png" dengan file logo kamu -->
-
-        <div class="leading-tight">
-          <div class="text-sm font-semibold">SentimenLAB</div>
-        </div>
+  <header class="sticky top-0 z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
+      <a href="#top" class="flex items-center gap-3 group">
+        <span class="text-lg font-bold tracking-tight">SentimenLAB</span>
       </a>
 
-      <nav class="hidden items-center gap-6 md:flex">
-        <a class="text-sm text-slate-200/90 hover:text-white" href="#produk">Produk</a>
-        <a class="text-sm text-slate-200/90 hover:text-white" href="#kontak">Kontak</a>
-        <a class="text-sm text-slate-200/90 hover:text-white" href="#faq">FAQ</a>
+      <nav class="hidden items-center gap-8 md:flex">
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#produk">Produk</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#fitur">Fitur</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#faq">FAQ</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#kontak">Kontak</a>
       </nav>
-
-      <a href="#produk" class="hidden rounded-xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-slate-950 hover:bg-emerald-400 md:inline-flex">
-        Lihat Produk
-      </a>
+      
+      <!-- Mobile menu button -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/5 bg-slate-950/95 backdrop-blur-xl">
+      <nav class="flex flex-col px-6 py-4 gap-4">
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors py-2" href="#produk">Produk</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors py-2" href="#fitur">Fitur</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors py-2" href="#kontak">Kontak</a>
+        <a class="text-sm font-medium text-slate-400 hover:text-white transition-colors py-2" href="#faq">FAQ</a>
+      </nav>
     </div>
   </header>
 
-  <main id="top">
+  <main id="top" class="grid-pattern">
     <!-- HERO -->
     <section class="relative">
       <div class="pointer-events-none absolute inset-0 overflow-hidden">
@@ -54,7 +133,7 @@
           <div>
 
             <h1 class="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-5xl">
-              Program Analisis Sentimen <span class="text-emerald-300">Bahasa Indonesia</span>.
+              Program Analisis Sentimen <span class="text-emerald-300">Bahasa Indonesia</span>
             </h1>
 
             <p class="mt-4 max-w-xl text-slate-200/80">
@@ -75,144 +154,287 @@
           <div class="relative h-full w-full overflow-hidden rounded-3xl bg-slate-950 ring-1 ring-white/10 group">
   
             <img 
-              src="logo_bisnis.png" 
+              src="image/logo_bisnis.png" 
               alt="Visualisasi analisis data sentimen dan big data untuk riset akademik" 
             />
           </div>
         </div>
       </div>
     </section>
-
-    <!-- PRODUCTS (hapus kategori) -->
-    <section id="produk" class="border-t border-white/10 bg-slate-950">
-      <div class="mx-auto max-w-6xl px-4 py-10">
-        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 class="text-2xl font-bold tracking-tight">Produk</h2>
-            <p class="mt-1 text-sm text-slate-200/70">Pilih program sesuai kebutuhan. Pembayaran langsung lewat Mayar.</p>
+    
+    <!-- FEATURES -->
+    <section id="fitur" class="relative border-t border-white/5">
+      <div class="mx-auto max-w-7xl px-6 py-20 lg:py-24">
+        <div class="text-center mb-16">
+          <span class="text-sm font-semibold uppercase tracking-wider text-brand-400">Kenapa Pilih Kami</span>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-white">Fitur Unggulan</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-slate-400">
+            Program kami dirancang khusus untuk profesional dengan standar kualitas tinggi.
+          </p>
+        </div>
+        
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Feature 1 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Source Code Lengkap</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Dapatkan source code Python yang terstruktur dan mudah dipahami, siap dijalankan di Google Colab.
+            </p>
           </div>
-
-          <div class="w-full md:w-[28rem]">
-            <label class="text-xs text-slate-300/80">Cari produk</label>
-            <input
-              id="searchInput"
-              type="text"
-              placeholder="contoh: svm, naive bayes, indobert..."
-              class="mt-1 w-full rounded-xl bg-white/5 px-3 py-2 text-sm ring-1 ring-white/10 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/40"
-            />
+          
+          <!-- Feature 2 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Dataset Real</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Dataset asli dari TikTok, YouTube, dan platform sosial media lainnya yang sudah terverifikasi.
+            </p>
+          </div>
+          
+          <!-- Feature 3 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Visualisasi Lengkap</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Output berupa chart, word cloud, confusion matrix, dan metrik evaluasi yang siap untuk laporan.
+            </p>
+          </div>
+          
+          <!-- Feature 4 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-500/10 text-rose-400 ring-1 ring-rose-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Dokumentasi Jelas</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Setiap langkah dijelaskan dengan komentar code yang detail, mudah dipahami pemula sekalipun.
+            </p>
+          </div>
+          
+          <!-- Feature 5 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Algoritma Terkini</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Menggunakan algoritma populer seperti SVM, Naive Bayes, Random Forest, hingga IndoBERT.
+            </p>
+          </div>
+          
+          <!-- Feature 6 -->
+          <div class="card-hover group rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-cyan-500/10 text-cyan-400 ring-1 ring-cyan-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="mt-6 text-xl font-bold text-white">Support Responsif</h3>
+            <p class="mt-3 text-slate-400 leading-relaxed">
+              Tim support siap membantu jika ada kendala teknis atau pertanyaan seputar program.
+            </p>
           </div>
         </div>
-
-        <div id="productGrid" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"></div>
       </div>
     </section>
 
-    <!-- KONTAK (setelah produk) -->
-    <section id="kontak" class="relative border-t border-white/10 bg-slate-950 py-24 overflow-hidden">
-        <div class="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent"></div>
-        <div class="pointer-events-none absolute -bottom-24 right-0 h-96 w-96 rounded-full bg-indigo-500/5 blur-[120px]"></div>
-      
-        <div class="relative mx-auto max-w-6xl px-4">
-          <div class="text-center">
-            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl text-white">Butuh Konsultasi?</h2>
-            <p class="mx-auto mt-4 max-w-xl text-base text-slate-400">
-              Mau buat program yang berbeda? Tim <span class="text-emerald-400 font-medium">SentimenLAB</span> siap bantu wujudkan keinginanmu. Jangan ragu-ragu ya!
+    <!-- PRODUCTS -->
+    <section id="produk" class="relative border-t border-white/5 bg-slate-900/30">
+      <div class="mx-auto max-w-7xl px-6 py-20 lg:py-24">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between mb-12">
+          <div>
+            <span class="text-sm font-semibold uppercase tracking-wider text-brand-400">Katalog</span>
+            <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-white">Pilih Program</h2>
+            <p class="mt-4 max-w-xl text-slate-400">
+              Semua program sudah termasuk source code, dataset, dan dokumentasi. Pembayaran aman melalui Mayar.
             </p>
           </div>
-      
-          <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:max-w-4xl lg:mx-auto">
-            
-            <a href="https://wa.me/6281293009141" target="_blank" rel="noopener"
-               class="group relative overflow-hidden rounded-3xl bg-white/[0.03] p-8 ring-1 ring-white/10 transition-all duration-300 hover:bg-white/[0.06] hover:ring-emerald-500/50">
-              <div class="flex items-center gap-5">
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-xs font-bold uppercase tracking-wider text-emerald-400">Konsultasi Cepat</div>
-                  <div class="mt-1 text-xl font-bold text-white">WhatsApp</div>
-                </div>
-              </div>
-            </a>
-      
-            <a href="mailto:y@gmail.com"
-               class="group relative overflow-hidden rounded-3xl bg-white/[0.03] p-8 ring-1 ring-white/10 transition-all duration-300 hover:bg-white/[0.06] hover:ring-indigo-500/50">
-              <div class="flex items-center gap-5">
-                <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-400 ring-1 ring-indigo-500/20 group-hover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <div class="text-xs font-bold uppercase tracking-wider text-indigo-400">Pertanyaan Formal</div>
-                  <div class="mt-1 text-xl font-bold text-white">Email</div>
-                </div>
-              </div>
-            </a>
-      
+
+          <div class="w-full lg:w-96">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Cari produk... (contoh: tiktok, svm)"
+                class="w-full rounded-2xl bg-white/5 pl-12 pr-4 py-4 text-sm ring-1 ring-white/10 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500/50 transition-all"
+              />
+            </div>
           </div>
         </div>
-      </section>
+
+        <div id="productGrid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="kontak" class="relative border-t border-white/5 bg-slate-900/30 overflow-hidden">
+      <div class="pointer-events-none absolute inset-0">
+        <div class="absolute -bottom-40 left-1/2 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-brand-500/10 blur-[120px]"></div>
+      </div>
+      
+      <div class="relative mx-auto max-w-7xl px-6 py-20 lg:py-24">
+        <div class="text-center mb-16">
+          <span class="text-sm font-semibold uppercase tracking-wider text-brand-400">Hubungi Kami</span>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-white">Butuh Bantuan?</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-slate-400">
+            Mau konsultasi atau request program custom? Tim SentimenLAB siap membantu!
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+          <a href="https://wa.me/6281293009141" target="_blank" rel="noopener"
+             class="card-hover group relative rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-brand-500/30 text-center">
+            <div class="flex h-16 w-16 mx-auto items-center justify-center rounded-2xl bg-brand-500/10 text-brand-400 ring-1 ring-brand-500/20 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </div>
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-wider text-brand-400">Respon Cepat</div>
+              <div class="mt-2 text-2xl font-bold text-white">WhatsApp</div>
+              <div class="mt-2 text-sm text-slate-400">Chat langsung dengan tim kami</div>
+            </div>
+          </a>
+
+          <a href="mailto:sentimenlab@gmail.com"
+             class="card-hover group relative rounded-3xl bg-white/[0.02] p-8 ring-1 ring-white/5 hover:ring-blue-500/30 text-center">
+            <div class="flex h-16 w-16 mx-auto items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20 group-hover:scale-110 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="mt-6">
+              <div class="text-xs font-bold uppercase tracking-wider text-blue-400">Pertanyaan Formal</div>
+              <div class="mt-2 text-2xl font-bold text-white">Email</div>
+              <div class="mt-2 text-sm text-slate-400">Untuk keperluan kerjasama</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- FAQ -->
-    <section id="faq" class="border-t border-white/10 bg-slate-950">
-      <div class="mx-auto max-w-6xl px-4 py-12">
-        <h2 class="text-2xl font-bold tracking-tight">FAQ</h2>
+    <section id="faq" class="relative border-t border-white/5">
+      <div class="mx-auto max-w-4xl px-6 py-20 lg:py-24">
+        <div class="text-center mb-16">
+          <span class="text-sm font-semibold uppercase tracking-wider text-brand-400">Bantuan</span>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl text-white">Pertanyaan Umum</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-slate-400">
+            Jawaban untuk pertanyaan yang sering ditanyakan.
+          </p>
+        </div>
 
-        <div class="mt-6 grid gap-4 md:grid-cols-2">
-          <details class="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-            <summary class="cursor-pointer list-none font-semibold">
-              Apakah ini cocok untuk skripsi?
-              <span class="float-right text-slate-300 transition group-open:rotate-180">⌄</span>
+        <div class="space-y-4">
+          <details class="group rounded-2xl bg-white/[0.02] ring-1 ring-white/5 overflow-hidden">
+            <summary class="cursor-pointer list-none p-6 font-semibold text-white flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <span>Apakah ini cocok untuk skripsi?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </summary>
-            <p class="mt-3 text-sm text-slate-200/70">
-              Sangat cocok—asal tetap kamu pahami, bukan cuma kamu submit lalu berharap semesta merestui.
-            </p>
+            <div class="px-6 pb-6">
+              <p class="text-slate-400 leading-relaxed">
+                Sangat cocok untuk kebutuhan skripsi, tesis, maupun penelitian lainnya. Program kami dirancang dengan metodologi yang dapat dipertanggungjawabkan secara akademik. Pastikan untuk memahami alur programnya ya!
+              </p>
+            </div>
           </details>
 
-          <details class="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-            <summary class="cursor-pointer list-none font-semibold">
-              Output apa yang saya dapat?
-              <span class="float-right text-slate-300 transition group-open:rotate-180">⌄</span>
+          <details class="group rounded-2xl bg-white/[0.02] ring-1 ring-white/5 overflow-hidden">
+            <summary class="cursor-pointer list-none p-6 font-semibold text-white flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <span>Output apa yang saya dapat?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </summary>
-            <p class="mt-3 text-sm text-slate-200/70">
-              Biasanya CSV hasil klasifikasi + ringkasan persentase. Kalau mau dramanya, itu muncul pas revisi.
-            </p>
+            <div class="px-6 pb-6">
+              <p class="text-slate-400 leading-relaxed">
+                Anda akan mendapatkan CSV hasil klasifikasi sentimen, visualisasi berupa chart dan word cloud, confusion matrix, serta metrik evaluasi seperti akurasi, precision, recall, dan F1-score.
+              </p>
+            </div>
           </details>
 
-          <details class="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-            <summary class="cursor-pointer list-none font-semibold">
-              Bisa pakai tanpa GPU?
-              <span class="float-right text-slate-300 transition group-open:rotate-180">⌄</span>
+          <details class="group rounded-2xl bg-white/[0.02] ring-1 ring-white/5 overflow-hidden">
+            <summary class="cursor-pointer list-none p-6 font-semibold text-white flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <span>Bisa dijalankan tanpa GPU?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </summary>
-            <p class="mt-3 text-sm text-slate-200/70">
-              Bisa. Tanpa GPU tetap jalan, yang penting bukan kamu yang ‘stress’ duluan.
-            </p>
+            <div class="px-6 pb-6">
+              <p class="text-slate-400 leading-relaxed">
+                Ya, sebagian besar program bisa dijalankan tanpa GPU. Untuk program deep learning seperti IndoBERT, disarankan menggunakan GPU gratis dari Google Colab untuk hasil optimal.
+              </p>
+            </div>
           </details>
 
-          <details class="group rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
-            <summary class="cursor-pointer list-none font-semibold">
-              Cara belinya?
-              <span class="float-right text-slate-300 transition group-open:rotate-180">⌄</span>
+          <details class="group rounded-2xl bg-white/[0.02] ring-1 ring-white/5 overflow-hidden">
+            <summary class="cursor-pointer list-none p-6 font-semibold text-white flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <span>Bagaimana cara membeli?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </summary>
-            <p class="mt-3 text-sm text-slate-200/70">
-              Klik ‘Beli Sekarang’ → bayar di Mayar. Kalau jempol kamu bisa scroll TikTok 3 jam, jempol kamu bisa checkout 30 detik.
-            </p>
+            <div class="px-6 pb-6">
+              <p class="text-slate-400 leading-relaxed">
+                Klik tombol "Beli Sekarang" pada produk yang diinginkan, lalu selesaikan pembayaran melalui Mayar. File akan langsung dikirim ke email Anda setelah pembayaran berhasil.
+              </p>
+            </div>
+          </details>
+          
+          <details class="group rounded-2xl bg-white/[0.02] ring-1 ring-white/5 overflow-hidden">
+            <summary class="cursor-pointer list-none p-6 font-semibold text-white flex items-center justify-between hover:bg-white/[0.02] transition-colors">
+              <span>Apakah ada garansi?</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-6">
+              <p class="text-slate-400 leading-relaxed">
+                Ya, kami memberikan garansi support teknis. Jika ada kendala dalam menjalankan program, tim kami siap membantu melalui WhatsApp.
+              </p>
+            </div>
           </details>
         </div>
       </div>
     </section>
 
-    <footer class="border-t border-white/10 bg-slate-950">
-      <div class="mx-auto max-w-6xl px-4 py-8">
-        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div class="text-sm text-slate-200/70">© <span id="year"></span> SentimenLAB</div>
-          <div class="flex gap-4 text-sm">
-            <a class="text-slate-200/70 hover:text-white" href="#produk">Produk</a>
-            <a class="text-slate-200/70 hover:text-white" href="#kontak">Kontak</a>
-            <a class="text-slate-200/70 hover:text-white" href="#faq">FAQ</a>
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-slate-950">
+      <div class="mx-auto max-w-7xl px-6 py-12">
+        <div class="flex flex-col items-center gap-6 md:flex-row md:justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-lg font-bold tracking-tight">SentimenLAB</span>
+          </div>
+          
+          <nav class="flex items-center gap-8">
+            <a class="text-sm text-slate-400 hover:text-white transition-colors" href="#produk">Produk</a>
+            <a class="text-sm text-slate-400 hover:text-white transition-colors" href="#fitur">Fitur</a>
+            <a class="text-sm text-slate-400 hover:text-white transition-colors" href="#faq">FAQ</a>
+            <a class="text-sm text-slate-400 hover:text-white transition-colors" href="#kontak">Kontak</a>
+          </nav>
+          
+          <div class="text-sm text-slate-500">
+            © <span id="year"></span> SentimenLAB. All rights reserved.
           </div>
         </div>
       </div>
@@ -221,43 +443,55 @@
 
   <!-- Modal: Product Detail -->
   <div id="productModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/70"></div>
-    <div class="absolute inset-0 flex items-center justify-center p-4">
-      <div class="w-full max-w-2xl rounded-3xl bg-slate-950 p-5 ring-1 ring-white/10">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <div id="modalTitle" class="text-xl font-bold"></div>
-            <div id="modalSubtitle" class="mt-1 text-sm text-slate-200/70"></div>
-          </div>
-          <button id="closeModalBtn" class="rounded-xl bg-white/5 px-3 py-2 text-sm ring-1 ring-white/10 hover:bg-white/10">
-            Tutup
-          </button>
+    <div class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4 overflow-y-auto">
+      <div class="relative w-full max-w-2xl rounded-3xl bg-slate-900 p-6 md:p-8 ring-1 ring-white/10 shadow-2xl my-8">
+        <button id="closeModalBtn" class="absolute top-4 right-4 rounded-full bg-white/5 p-2 hover:bg-white/10 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div class="pr-8">
+          <div id="modalBadge" class="inline-flex items-center rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold text-brand-300 ring-1 ring-brand-500/20 mb-4"></div>
+          <h3 id="modalTitle" class="text-xl md:text-2xl font-bold text-white"></h3>
+          <p id="modalSubtitle" class="mt-2 text-slate-400"></p>
         </div>
 
-        <div class="mt-5 grid gap-4 md:grid-cols-2">
-          <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
-            <div class="text-xs text-slate-300/80">Yang kamu dapat</div>
-            <ul id="modalIncludes" class="mt-2 space-y-2 text-sm text-slate-200/80"></ul>
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl bg-white/[0.02] p-5 ring-1 ring-white/5">
+            <div class="flex items-center gap-2 text-sm font-semibold text-brand-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Yang Kamu Dapat
+            </div>
+            <ul id="modalIncludes" class="space-y-3 text-sm text-slate-300"></ul>
           </div>
-          <div class="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
-            <div class="text-xs text-slate-300/80"></div>
-            <ul id="modalSpecs" class="mt-2 space-y-2 text-sm text-slate-200/80"></ul>
+          <div class="rounded-2xl bg-white/[0.02] p-5 ring-1 ring-white/5">
+            <div class="flex items-center gap-2 text-sm font-semibold text-blue-400 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              Spesifikasi
+            </div>
+            <ul id="modalSpecs" class="space-y-3 text-sm text-slate-300"></ul>
           </div>
         </div>
 
-        <div class="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/5">
           <div>
-            <div class="text-xs text-slate-300/80">Harga</div>
-            <div id="modalPrice" class="text-2xl font-extrabold"></div>
+            <div class="text-xs text-slate-500 uppercase tracking-wider">Harga</div>
+            <div id="modalPrice" class="text-3xl font-bold text-white"></div>
           </div>
           <a
             id="buyNowLink"
             href="#"
             target="_blank"
             rel="noopener"
-            class="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-emerald-400"
+            class="w-full sm:w-auto rounded-full bg-brand-500 px-8 py-4 text-center text-sm font-semibold text-slate-950 hover:bg-brand-400 transition-all hover:scale-105"
           >
-            Beli sekarang
+            Beli Sekarang
           </a>
         </div>
       </div>
@@ -267,6 +501,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
